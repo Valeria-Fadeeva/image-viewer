@@ -19,13 +19,16 @@ fn main() {
     let default_image = "img.jpg";
 
     let panel_height = 68;
+    let panel_height_f: f32 = panel_height as f32;
+    let half_panel_height_f = panel_height_f / 2.0;
+    let half_panel_height = half_panel_height_f.round() as i32;
+
     let small_element_height = 30;
     let padding = 5;
     let bgcolor = 0x1b1b1b;
     let fgcolor = 0xaaaaaa;
     let font_size = 12;
 
-    let panel_height_f: f32 = panel_height as f32;
     let screen_h_f: f32 = screen_h as f32;
     let half_h_f: f32 = (screen_h_f - panel_height_f) / 2.0;
     let half_h: i32 = half_h_f.round() as i32;
@@ -51,7 +54,7 @@ fn main() {
     let mut frame3: (i32, i32, i32, i32) = (0, 0, 0, 0);
     let mut status_frame3: (i32, i32, i32, i32) = (0, 0, 0, 0);
 
-    let loy = "h33";
+    let loy = "v";
 
     // one_image_layout
     let one_image_layout = (
@@ -63,51 +66,51 @@ fn main() {
 
     let one_image_status_layout = (
         0,
-        screen_h - panel_height - small_element_height,
+        screen_h - small_element_height - panel_height,
         screen_w,
         small_element_height,
     );
 
     if loy == "v" {
         // three_image_layout vertical
-        frame1 = (0, 0, screen_w, half_h - small_element_height);
+        frame1 = (0, 0, screen_w, half_h - small_element_height - half_panel_height);
 
         status_frame1 = (
             0,
-            half_h - small_element_height,
+            half_h - small_element_height - half_panel_height,
             screen_w,
             small_element_height,
         );
 
-        frame2 = (0, half_h + 1, half_w, half_h - small_element_height);
+        frame2 = (0, half_h - half_panel_height + 1, half_w, half_h - small_element_height - half_panel_height);
 
         status_frame2 = (
             0,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
             half_w,
             small_element_height,
         );
 
         frame3 = (
             half_w + 1,
-            half_h + 1,
+            half_h - half_panel_height + 1,
             half_w,
-            half_h - small_element_height,
+            half_h - small_element_height - half_panel_height,
         );
 
         status_frame3 = (
             half_w + 1,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
             half_w,
             small_element_height,
         );
     } else if loy == "h" {
         // three_image_layout horizontal
-        frame1 = (0, 0, half_w, screen_h - panel_height - small_element_height);
+        frame1 = (0, 0, half_w, screen_h - small_element_height - panel_height);
 
         status_frame1 = (
             0,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
             half_w,
             small_element_height,
         );
@@ -116,12 +119,12 @@ fn main() {
             half_w + 1,
             0,
             half_half_w - 1,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
         );
 
         status_frame2 = (
             half_w + 1,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
             half_half_w - 1,
             small_element_height,
         );
@@ -130,12 +133,12 @@ fn main() {
             half_w + half_half_w + 1,
             0,
             half_half_w - 1,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
         );
 
         status_frame3 = (
             half_w + half_half_w + 1,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
             half_half_w - 1,
             small_element_height,
         );
@@ -145,12 +148,12 @@ fn main() {
             0,
             0,
             w_1_of_3,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
         );
 
         status_frame1 = (
             0,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
             w_1_of_3,
             small_element_height,
         );
@@ -159,12 +162,12 @@ fn main() {
             w_1_of_3 + 1,
             0,
             w_1_of_3 - 1,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
         );
 
         status_frame2 = (
             w_1_of_3 + 1,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
             w_1_of_3 - 1,
             small_element_height,
         );
@@ -173,12 +176,12 @@ fn main() {
             w_2_of_3 + 2,
             0,
             w_1_of_3,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
         );
 
         status_frame3 = (
             w_2_of_3 + 2,
-            screen_h - panel_height - small_element_height,
+            screen_h - small_element_height - panel_height,
             w_1_of_3,
             small_element_height,
         );
@@ -257,57 +260,57 @@ fn main() {
         if loy == "v" {
             img0.scale(
                 screen_w - padding * 2,
-                half_h - padding * 2 - small_element_height,
+                half_h - padding * 2 - small_element_height - half_panel_height,
                 true,
                 true,
             );
             img1.scale(
                 half_w - padding * 2,
-                half_h - padding * 2 - small_element_height,
+                half_h - padding * 2 - small_element_height - half_panel_height,
                 true,
                 true,
             );
             img2.scale(
                 half_w - padding * 2,
-                half_h - padding * 2 - small_element_height,
+                half_h - padding * 2 - small_element_height - half_panel_height,
                 true,
                 true,
             );
         } else if loy == "h" {
             img0.scale(
                 half_w - padding * 2,
-                screen_h - padding * 2 - small_element_height,
+                screen_h - padding * 2 - small_element_height - panel_height,
                 true,
                 true,
             );
             img1.scale(
                 half_half_w - padding * 2,
-                screen_h - padding * 2 - small_element_height,
+                screen_h - padding * 2 - small_element_height - panel_height,
                 true,
                 true,
             );
             img2.scale(
                 half_half_w - padding * 2,
-                screen_h - padding * 2 - small_element_height,
+                screen_h - padding * 2 - small_element_height - panel_height,
                 true,
                 true,
             );
         } else if loy == "h33" {
             img0.scale(
                 w_1_of_3 - padding * 2,
-                screen_h - padding * 2 - small_element_height,
+                screen_h - padding * 2 - small_element_height - panel_height,
                 true,
                 true,
             );
             img1.scale(
                 w_1_of_3 - padding * 2,
-                screen_h - padding * 2 - small_element_height,
+                screen_h - padding * 2 - small_element_height - panel_height,
                 true,
                 true,
             );
             img2.scale(
                 w_1_of_3 - padding * 2,
-                screen_h - padding * 2 - small_element_height,
+                screen_h - padding * 2 - small_element_height - panel_height,
                 true,
                 true,
             );
